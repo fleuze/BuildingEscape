@@ -42,7 +42,7 @@ void URotateDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 
-
+	trigger->ReceiveActorEndOverlap();
 	if (trigger->IsOverlappingActor(player))
 	{
 		OpenDoor();
