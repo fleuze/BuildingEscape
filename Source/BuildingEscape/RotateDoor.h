@@ -5,6 +5,9 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/Actor.h"
+#include "Runtime/Engine/Classes/Engine/TriggerBox.h"
+#include "Runtime/Engine/Classes/Engine/World.h"
+#include "Runtime/Engine/Classes/GameFramework/PlayerController.h"
 #include "RotateDoor.generated.h"
 
 
@@ -21,10 +24,26 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	void OpenDoor();
+	void CloseDoor();
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 		
-	
+private:
+	UPROPERTY(VisibleAnywhere)
+	float openAngle = 90;
+
+	UPROPERTY(EditAnywhere)
+	ATriggerBox* trigger;
+
+	AActor* player;
+	float lastTimeOpen = 0;
+
+	UPROPERTY(EditAnywhere)
+	float closeDelay;
+
+	float delayfermeture;
 };

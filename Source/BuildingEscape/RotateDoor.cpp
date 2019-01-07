@@ -18,18 +18,50 @@ URotateDoor::URotateDoor()
 void URotateDoor::BeginPlay()
 {
 	Super::BeginPlay();
-	FRotator rotation(0, 90, 0);
-	GetOwner()->SetActorRotation(rotation);
-	// ...
+	player = GetWorld()->GetFirstPlayerController()->GetPawn();
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *player->GetName());
+	
+	
 	
 }
 
+void URotateDoor::OpenDoor()
+{
+	FRotator rotation(0, 90, 0);
+	GetOwner()->SetActorRotation(rotation);
+}
+void URotateDoor::CloseDoor()
+{
+	FRotator rotation(0, 0, 0);
+	GetOwner()->SetActorRotation(rotation);
+}
 
 // Called every frame
 void URotateDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
+
+
+	if (trigger->IsOverlappingActor(player))
+	{
+		OpenDoor();
+		lastTimeOpen = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("Porte ouverte"));
+	}
+	else
+	{
+		if (lastTimeOpen != 0)
+		{
+			delayfermeture = (closeDelay - (GetWorld()->GetTimeSeconds() - lastTimeOpen));
+			UE_LOG(LogTemp, Warning, TEXT("Fermeture porte dans : %lf"), delayfermeture);
+		}
+		if (GetWorld()->GetTimeSeconds() - lastTimeOpen > closeDelay)
+		{
+			CloseDoor();
+			lastTimeOpen = 0;
+		}
+		
+	}
 }
 
