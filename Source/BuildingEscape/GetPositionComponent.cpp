@@ -18,10 +18,10 @@ UGetPositionComponent::UGetPositionComponent()
 void UGetPositionComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	int test = 4;
+	FString name = GetOwner()->GetName();
+	FVector actorPos = GetOwner()->GetTransform().GetLocation();
+	UE_LOG(LogTemp, Warning, TEXT("%s : %s"), *name, *actorPos.ToString());
 
-	UE_LOG(LogTemp, Log, TEXT("Hello World : %d"),test);
-	
 }
 
 
