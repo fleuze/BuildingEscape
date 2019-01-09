@@ -8,6 +8,7 @@
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 #include "DrawDebugHelpers.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "Grabber.generated.h"
 
 
@@ -24,14 +25,21 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	void Released();
+
+	void Grab();
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
 	APlayerController* player;
-	FVector playerLoc;
 	FRotator playerRot;
+	FVector startPoint;
+	UPhysicsHandleComponent* handle;
 	UPROPERTY(EditAnywhere)
 	float maxDist = 100;
+	FVector endPoint;
+	FHitResult hit;
 };
