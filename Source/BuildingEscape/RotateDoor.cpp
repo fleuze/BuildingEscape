@@ -27,12 +27,12 @@ void URotateDoor::BeginPlay()
 
 void URotateDoor::OpenDoor()
 {
-	FRotator rotation(0, 90, 0);
+	FRotator rotation(0, -90, 0);
 	GetOwner()->SetActorRotation(rotation);
 }
 void URotateDoor::CloseDoor()
 {
-	FRotator rotation(0, 0, 0);
+	FRotator rotation(0, 180, 0);
 	GetOwner()->SetActorRotation(rotation);
 }
 
