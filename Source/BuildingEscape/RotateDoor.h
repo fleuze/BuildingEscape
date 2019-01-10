@@ -8,6 +8,8 @@
 #include "Runtime/Engine/Classes/Engine/TriggerBox.h"
 #include "Runtime/Engine/Classes/Engine/World.h"
 #include "Runtime/Engine/Classes/GameFramework/PlayerController.h"
+#include "Runtime/Engine/Classes/Components/PrimitiveComponent.h"
+#include "Runtime/Core/Public/Containers/Array.h"
 #include "RotateDoor.generated.h"
 
 
@@ -26,6 +28,8 @@ protected:
 
 	void OpenDoor();
 	void CloseDoor();
+
+	float GetMassInTrigger();
 
 public:	
 	// Called every frame

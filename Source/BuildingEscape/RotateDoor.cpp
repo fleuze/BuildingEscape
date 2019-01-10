@@ -35,12 +35,27 @@ void URotateDoor::CloseDoor()
 	FRotator rotation(0, 180, 0);
 	GetOwner()->SetActorRotation(rotation);
 }
+float URotateDoor::GetMassInTrigger()
+{
+	float totalMass =0;
+	TSet<AActor*> overlappingActors;
 
+	trigger->GetOverlappingActors(overlappingActors);
+	for(AActor* actor : overlappingActors)
+	{
+		totalMass = totalMass + actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+		
+	}
+
+
+	
+	return totalMass;
+}
 // Called every frame
 void URotateDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
+	UE_LOG(LogTemp, Warning, TEXT("masse total : %f"), GetMassInTrigger());
 
 	if (trigger->IsOverlappingActor(player))
 	{
