@@ -41,14 +41,11 @@ void UGrabber::Released()
 
 void UGrabber::Grab()
 {
-	FRotator playerRot;
-	FVector startPoint;
-	FVector endPoint;
 	FHitResult hit;
 
-	player->GetPlayerViewPoint(startPoint, playerRot);
+	
 	//UE_LOG(LogTemp, Warning, TEXT("Location : %s Rotation : %s"), *startPoint.ToString(), *playerRot.ToString());
-	endPoint = startPoint + playerRot.Vector()*maxDist;
+	
 
 	//DrawDebugLine(GetWorld(), startPoint, endPoint, FColor::Red, false, -1, 0, 5);
 
@@ -66,7 +63,13 @@ void UGrabber::Grab()
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	player->GetPlayerViewPoint(startPoint, playerRot);
+	endPoint = startPoint + playerRot.Vector()*maxDist;
 
+	if (handle->GetGrabbedComponent() != nullptr)
+	{
+		handle->SetTargetLocation(endPoint);
+	}
 	// ...
 }
 

@@ -34,6 +34,9 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
+	FRotator playerRot;
+	FVector startPoint;
+	FVector endPoint;
 	// Pour Récupérer le player viewPoint
 	APlayerController* player;
 	//HandleComponent pour gerer le Grabb et le Released
