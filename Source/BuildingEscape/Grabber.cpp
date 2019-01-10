@@ -51,7 +51,7 @@ void UGrabber::Grab()
 	if (GetWorld()->LineTraceSingleByObjectType(hit, startPoint, endPoint, ECollisionChannel::ECC_PhysicsBody, FCollisionQueryParams(FName(), false, GetOwner())))
 	{
 		UE_LOG(LogTemp, Warning, TEXT("hit : %s"), *hit.GetActor()->GetName());
-		handle->GrabComponent(hit.GetComponent(), NAME_None, hit.GetActor()->GetActorLocation(), false);
+		handle->GrabComponent(hit.GetComponent(), NAME_None, hit.ImpactPoint, false);
 	}
 	UE_LOG(LogTemp, Warning, TEXT("BeginGrab"));
 }
