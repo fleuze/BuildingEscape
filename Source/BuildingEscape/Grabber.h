@@ -34,12 +34,11 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
+	// Pour Récupérer le player viewPoint
 	APlayerController* player;
-	FRotator playerRot;
-	FVector startPoint;
+	//HandleComponent pour gerer le Grabb et le Released
 	UPhysicsHandleComponent* handle;
+	// Distance Max de Grabb
 	UPROPERTY(EditAnywhere)
 	float maxDist = 100;
-	FVector endPoint;
-	FHitResult hit;
 };

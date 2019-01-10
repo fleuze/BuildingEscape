@@ -24,6 +24,7 @@ void UGrabber::BeginPlay()
 	{
 		UE_LOG(LogTemp, Error, TEXT("Error : UPhysicsHandleComponent"));
 	}
+	// Input Controller pour bind Grabb et Released
 	UInputComponent* inputC = GetOwner()->FindComponentByClass<UInputComponent>();
 	if (!inputC)
 	{
@@ -40,6 +41,22 @@ void UGrabber::Released()
 
 void UGrabber::Grab()
 {
+	FRotator playerRot;
+	FVector startPoint;
+	FVector endPoint;
+	FHitResult hit;
+
+	player->GetPlayerViewPoint(startPoint, playerRot);
+	//UE_LOG(LogTemp, Warning, TEXT("Location : %s Rotation : %s"), *startPoint.ToString(), *playerRot.ToString());
+	endPoint = startPoint + playerRot.Vector()*maxDist;
+
+	//DrawDebugLine(GetWorld(), startPoint, endPoint, FColor::Red, false, -1, 0, 5);
+
+	if (GetWorld()->LineTraceSingleByObjectType(hit, startPoint, endPoint, ECollisionChannel::ECC_PhysicsBody, FCollisionQueryParams(FName(), false, GetOwner())))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("hit : %s"), *hit.GetActor()->GetName());
+		handle->GrabComponent(hit.GetComponent(), NAME_None, hit.GetActor()->GetActorLocation(), true);
+	}
 	UE_LOG(LogTemp, Warning, TEXT("BeginGrab"));
 }
 
@@ -49,17 +66,7 @@ void UGrabber::Grab()
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	player->GetPlayerViewPoint(startPoint, playerRot);
-	//UE_LOG(LogTemp, Warning, TEXT("Location : %s Rotation : %s"), *startPoint.ToString(), *playerRot.ToString());
-	endPoint = startPoint + playerRot.Vector()*maxDist;
 
-	//DrawDebugLine(GetWorld(), startPoint, endPoint, FColor::Red, false, -1, 0, 5);
-
-
-	if (GetWorld()->LineTraceSingleByObjectType(hit, startPoint, endPoint, ECollisionChannel::ECC_PhysicsBody, FCollisionQueryParams(FName(), false, GetOwner())))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("hit : %s"), *hit.GetActor()->GetName());
-	}
 	// ...
 }
 
