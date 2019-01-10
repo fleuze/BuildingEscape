@@ -43,5 +43,5 @@ private:
 	UPhysicsHandleComponent* handle;
 	// Distance Max de Grabb
 	UPROPERTY(EditAnywhere)
-	float maxDist = 100;
+	float maxDist = 250;
 };
