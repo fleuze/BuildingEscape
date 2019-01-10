@@ -50,4 +50,5 @@ private:
 	float closeDelay;
 
 	float delayfermeture;
+	float massMin = 90;
 };
