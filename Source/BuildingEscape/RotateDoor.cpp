@@ -24,6 +24,11 @@ void URotateDoor::BeginPlay()
 		return;
 	}
 	calMass = triggerMass->FindComponentByClass<UCalculateMass>();
+	if (!calMass)
+	{
+		UE_LOG(LogTemp, Error, TEXT("calMass RotateDoor not found"));
+		return;
+	}
 }
 
 void URotateDoor::OpenDoor()

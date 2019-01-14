@@ -21,6 +21,11 @@ void UCalculateMass::BeginPlay()
 
 
 	trigger = (ATriggerBox*)GetOwner();
+	if (!trigger)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Calculate BeginPlay Trigger not found"));
+		return;
+	}
 	// ...
 
 }
@@ -38,7 +43,11 @@ float UCalculateMass::GetMassInTrigger()
 {
 	float totalMass = 0;
 	TSet<AActor*> overlappingActors;
-
+	if (!trigger)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Calculate BeginPlay Trigger not found"));
+		return 0;
+	}
 	trigger->GetOverlappingActors(overlappingActors);
 	for (AActor* actor : overlappingActors)
 	{

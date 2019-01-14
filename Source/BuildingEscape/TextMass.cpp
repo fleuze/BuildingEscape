@@ -19,7 +19,17 @@ void UTextMass::BeginPlay()
 {
 	Super::BeginPlay();
 	textRender = GetOwner()->FindComponentByClass<UTextRenderComponent>();
+	if (!textRender)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Calculate BeginPlay TextRender not found"));
+		return;
+	}
 	calMass = triggerMass->FindComponentByClass<UCalculateMass>();
+	if (!calMass)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Calculate BeginPlay calMass not found"));
+		return;
+	}
 	// ...
 	
 }
@@ -30,7 +40,17 @@ void UTextMass::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	textRender->SetText(FText::AsNumber(FMath::RoundToFloat(calMass->GetMassInTrigger())));
+	MajText();
 	// ...
+}
+
+void UTextMass::MajText()
+{
+	if (!textRender)
+	{
+		UE_LOG(LogTemp, Error, TEXT("Calculate BeginPlay TextRender not found"));
+		return;
+	}
+	textRender->SetText(FText::AsNumber(FMath::RoundToFloat(calMass->GetMassInTrigger())));
 }
 
