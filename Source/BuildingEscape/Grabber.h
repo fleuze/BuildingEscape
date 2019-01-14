@@ -12,12 +12,12 @@
 #include "Grabber.generated.h"
 
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BUILDINGESCAPE_API UGrabber : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	UGrabber();
 
@@ -29,7 +29,7 @@ protected:
 
 	void Grab();
 
-public:	
+public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
@@ -38,9 +38,9 @@ private:
 	FVector startPoint;
 	FVector endPoint;
 	// Pour Récupérer le player viewPoint
-	APlayerController* player;
+	APlayerController* player = nullptr;
 	//HandleComponent pour gerer le Grabb et le Released
-	UPhysicsHandleComponent* handle;
+	UPhysicsHandleComponent* handle = nullptr;
 	// Distance Max de Grabb
 	UPROPERTY(EditAnywhere)
 	float maxDist = 250;

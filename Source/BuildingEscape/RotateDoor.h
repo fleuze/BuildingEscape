@@ -9,6 +9,7 @@
 #include "Runtime/Engine/Classes/Engine/World.h"
 #include "Runtime/Engine/Classes/GameFramework/PlayerController.h"
 #include "Runtime/Engine/Classes/Components/PrimitiveComponent.h"
+#include "CalculateMass.h"
 #include "Runtime/Core/Public/Containers/Array.h"
 #include "RotateDoor.generated.h"
 
@@ -29,7 +30,7 @@ protected:
 	void OpenDoor();
 	void CloseDoor();
 
-	float GetMassInTrigger();
+	
 
 public:	
 	// Called every frame
@@ -41,14 +42,15 @@ private:
 	float openAngle = 90;
 
 	UPROPERTY(EditAnywhere)
-	ATriggerBox* trigger;
+	ATriggerBox* triggerMass = nullptr;
 
-	AActor* player;
+	UCalculateMass* calMass = nullptr;
+
 	float lastTimeOpen = 0;
 
 	UPROPERTY(EditAnywhere)
 	float closeDelay;
 
 	float delayfermeture;
-	float massMin = 90;
+	
 };
