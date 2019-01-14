@@ -13,6 +13,7 @@
 #include "Runtime/Core/Public/Containers/Array.h"
 #include "RotateDoor.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDoorEvent);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BUILDINGESCAPE_API URotateDoor : public UActorComponent
@@ -26,31 +27,22 @@ public:
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-
-	void OpenDoor();
-	void CloseDoor();
-
 	
-
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 		
 private:
-	UPROPERTY(VisibleAnywhere)
-	float openAngle = 90;
 
 	UPROPERTY(EditAnywhere)
 	ATriggerBox* triggerMass = nullptr;
 
 	UCalculateMass* calMass = nullptr;
 
-	float lastTimeOpen = 0;
-
-	UPROPERTY(EditAnywhere)
-	float closeDelay;
-
-	float delayfermeture;
+	UPROPERTY(BlueprintAssignable)
+	FDoorEvent openRequest;
+	UPROPERTY(BlueprintAssignable)
+	FDoorEvent closeRequest;
 	
 };

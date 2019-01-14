@@ -51,6 +51,6 @@ void UTextMass::MajText()
 		UE_LOG(LogTemp, Error, TEXT("Calculate BeginPlay TextRender not found"));
 		return;
 	}
-	textRender->SetText(FText::AsNumber(FMath::RoundToFloat(calMass->GetMassInTrigger())));
+	textRender->SetText(FText::AsNumber(calMass->GetMassInTrigger()));
 }
 

@@ -39,9 +39,9 @@ void UCalculateMass::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	// ...
 }
 
-float UCalculateMass::GetMassInTrigger()
+int UCalculateMass::GetMassInTrigger()
 {
-	float totalMass = 0;
+	int totalMass = 0;
 	TSet<AActor*> overlappingActors;
 	if (!trigger)
 	{
@@ -51,7 +51,8 @@ float UCalculateMass::GetMassInTrigger()
 	trigger->GetOverlappingActors(overlappingActors);
 	for (AActor* actor : overlappingActors)
 	{
-		totalMass += actor->FindComponentByClass<UPrimitiveComponent>()->GetMass();
+		UE_LOG(LogTemp, Warning, TEXT("%s : %f"), *actor->GetName(), actor->FindComponentByClass<UPrimitiveComponent>()->GetMass());
+		totalMass += FMath::RoundToFloat(actor->FindComponentByClass<UPrimitiveComponent>()->GetMass());
 	}
 	return massMin - totalMass;
 }

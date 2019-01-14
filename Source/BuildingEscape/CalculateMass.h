@@ -27,11 +27,11 @@ protected:
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	float GetMassInTrigger();
+	int GetMassInTrigger();
 
 private:
 	UPROPERTY(EditAnywhere)
-	float massMin = 150.f;
+	int massMin = 150;
 
 	ATriggerBox* trigger = nullptr;
 	
