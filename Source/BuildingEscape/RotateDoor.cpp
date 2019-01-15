@@ -43,7 +43,7 @@ void URotateDoor::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 	if (calMass->GetMassInTrigger()==0)
 	{
 		openRequest.Broadcast();
-		UE_LOG(LogTemp, Warning, TEXT("Porte ouverte"));
+		//UE_LOG(LogTemp, Warning, TEXT("Porte ouverte"));
 	}
 	else
 	{

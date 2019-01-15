@@ -51,7 +51,7 @@ int UCalculateMass::GetMassInTrigger()
 	trigger->GetOverlappingActors(overlappingActors);
 	for (AActor* actor : overlappingActors)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("%s : %f"), *actor->GetName(), actor->FindComponentByClass<UPrimitiveComponent>()->GetMass());
+		//UE_LOG(LogTemp, Warning, TEXT("%s : %f"), *actor->GetName(), actor->FindComponentByClass<UPrimitiveComponent>()->GetMass());
 		totalMass += FMath::RoundToFloat(actor->FindComponentByClass<UPrimitiveComponent>()->GetMass());
 	}
 	return massMin - totalMass;

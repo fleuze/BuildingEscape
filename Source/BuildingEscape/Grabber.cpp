@@ -35,6 +35,7 @@ void UGrabber::BeginPlay()
 	if (!inputC)
 	{
 		UE_LOG(LogTemp, Error, TEXT("Grabber BeginPlay InputC not found"));
+		return;
 	}
 	inputC->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
 	inputC->BindAction("Grab", IE_Released, this, &UGrabber::Released);
@@ -72,9 +73,9 @@ void UGrabber::Grab()
 			UE_LOG(LogTemp, Error, TEXT("Grabber Grab handle not found"));
 			return;
 		}
-		handle->GrabComponent(hit.GetComponent(), NAME_None, hit.ImpactPoint, false);
+		handle->GrabComponent(hit.GetComponent(), NAME_None, hit.ImpactPoint, true);
 	}
-	UE_LOG(LogTemp, Warning, TEXT("BeginGrab"));
+	//UE_LOG(LogTemp, Warning, TEXT("BeginGrab"));
 }
 
 
