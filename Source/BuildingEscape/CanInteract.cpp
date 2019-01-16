@@ -48,15 +48,11 @@ void UCanInteract::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 		UE_LOG(LogTemp, Error, TEXT("CanInteract BeginPlay Trigger not found"));
 		return;
 	}
-	trigger->GetOverlappingActors(overlappingActors);
+	
 	UE_LOG(LogTemp, Warning, TEXT("actor : %s"), overlappingActors.Num());
-	if (overlappingActors.Num() == 1)
+	if (trigger->IsOverlappingActor(player))
 	{
-		//TODO
-		/*if (overlappingActors.)
-		{
-
-		}*/
+		
 	}
 
 	
