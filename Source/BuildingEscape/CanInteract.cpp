@@ -47,7 +47,7 @@ void UCanInteract::Interact()
 		UE_LOG(LogTemp, Error, TEXT("CanInteract Interact Player not found"));
 		return;
 	}
-	this->GetOwner()->DisableInput(player);
+	openRequestInteract.Broadcast();
 	//openRequestInteract.Broadcast();
 }
 
