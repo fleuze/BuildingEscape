@@ -9,6 +9,7 @@
 #include "Engine/World.h"
 #include "CanInteract.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDigitEvent);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BUILDINGESCAPE_API UCanInteract : public UActorComponent
@@ -18,6 +19,8 @@ class BUILDINGESCAPE_API UCanInteract : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	UCanInteract();
+	UPROPERTY(BlueprintReadWrite)
+	int numberDigit = 0;
 
 protected:
 	// Called when the game starts
@@ -36,5 +39,17 @@ private:
 	ATriggerBox* trigger = nullptr;
 	UInputComponent* inputC = nullptr;
 
+	UPROPERTY(BlueprintAssignable)
+	FDigitEvent openRequestWidget;
+	UPROPERTY(BlueprintAssignable)
+	FDigitEvent closeRequestWidget;
+	UPROPERTY(BlueprintAssignable)
+	FDigitEvent openRequestInteract;
+	UPROPERTY(BlueprintAssignable)
+	FDigitEvent closeRequestInteract;
+
+	
+
 	int cptNumberActorOverlaps = 0;
+
 };

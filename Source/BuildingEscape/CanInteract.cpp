@@ -32,10 +32,23 @@ void UCanInteract::BeginPlay()
 		UE_LOG(LogTemp, Error, TEXT("CanInteract BeginPlay Trigger not found"));
 		return;
 	}
+	if (!inputC)
+	{
+		UE_LOG(LogTemp, Error, TEXT("CanInteract BeginPlay InputC not found"));
+		return;
+	}
+	inputC->BindAction("Interact", IE_Pressed, this, &UCanInteract::Interact);
 }
 void UCanInteract::Interact()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Interact"));
+	if (!player)
+	{
+		UE_LOG(LogTemp, Error, TEXT("CanInteract Interact Player not found"));
+		return;
+	}
+	this->GetOwner()->DisableInput(player);
+	//openRequestInteract.Broadcast();
 }
 
 // Called every frame
@@ -43,28 +56,27 @@ void UCanInteract::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	if (!trigger)
-	{
-		UE_LOG(LogTemp, Error, TEXT("CanInteract BeginPlay Trigger not found"));
-		return;
-	}
 	if (!player)
 	{
 		UE_LOG(LogTemp, Error, TEXT("CanInteract Event tick Player not found"));
 		return;
 	}
-	//if(trigger->IsOverlappingActor(player))
-	
-	//UE_LOG(LogTemp, Warning, TEXT("%s"), trigger->IsOverlappingActor(player->GetOwner()));
-	
 
-	
-	/*if (!inputC)
+	if (!trigger)
 	{
-		UE_LOG(LogTemp, Error, TEXT("CanInteract BeginPlay InputC not found"));
+		UE_LOG(LogTemp, Error, TEXT("CanInteract BeginPlay Trigger not found"));
 		return;
 	}
-	inputC->BindAction("Interact", IE_Pressed, this, &UCanInteract::Interact);*/
-	// ...
+	trigger->GetOverlappingActors(overlappingActors);
+	if (overlappingActors.Num() == 1 && overlappingActors.Array()[0]->GetName() == "BP_Pawn_C_0")
+	{
+		// Ici on est sûre que le player est dans le trigger et uniquement lui donc affichage du widget
+		openRequestWidget.Broadcast();
+		
+	}
+	else
+	{
+		closeRequestWidget.Broadcast();
+	}
 }
 
